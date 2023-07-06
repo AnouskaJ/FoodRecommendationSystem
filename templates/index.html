@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Recommendation System</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h1>Food Recommendation System</h1>
+    <form id="recommendationForm" method="POST" action="/recommend">
+        <label for="dishName">Enter Dish Name:</label>
+        <input type="text" id="dishName" name="dishName" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    <h2>Recommended Dishes:</h2>
+    <ul id="recommendedDishes"></ul>
+
+    <script>
+        document.getElementById("recommendationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var dishName = document.getElementById("dishName").value;
+            getRecommendedDishes(dishName);
+        });
+
+        function getRecommendedDishes(dishName) {
+            fetch('/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'name': dishName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                var recommendedDishes = data.recommended_dishes;
+                displayRecommendedDishes(recommendedDishes);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function displayRecommendedDishes(dishes) {
+            var ul = document.getElementById("recommendedDishes");
+            ul.innerHTML = ""; // Clear the existing list
+
+            dishes.forEach(function(dish) {
+                var li = document.createElement("li");
+                li.textContent = dish;
+                ul.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -10,7 +10,6 @@ df = pd.read_csv('dataset/1662574418893344.csv')
 
 # Cleaning of description
 def cleaning(text):
-    text = text.lower()
     text = "".join([char for char in text if char not in string.punctuation])
     return text
 
@@ -49,7 +48,7 @@ def home():
 @app.route('/recommend', methods=['POST'])
 def recommend():
     data = request.json
-    dish_name = data['name']
+    dish_name = data['name'].lower()
     recommended_dishes = food_recommendations_advanced(dish_name)
     return jsonify({'recommended_dishes': recommended_dishes})
 

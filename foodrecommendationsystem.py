@@ -10,8 +10,12 @@ Original file is located at
 Recommendation of the 5 most similar dishes based on Cosine Similarity with a dish taken as input.
 """
 
-from flask import Flask, render_template, request, jsonify
 import pandas as pd
+import numpy as np
+from sklearn import preprocessing
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import string

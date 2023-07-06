@@ -13,3 +13,10 @@ This is a Food Recommendation System that suggests dishes based on various featu
 - Flask (for creating the API)
 - Scikit-learn (for text vectorization and similarity calculations)
 - Pandas (for data manipulation and analysis)
+
+
+Video Display:
+
+
+https://github.com/AnouskaJ/FoodRecommendationSystem/assets/82711261/e9397460-9bba-47fa-9b40-79cdcb1c9d43
+

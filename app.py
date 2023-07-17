@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import pandas as pd
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import string
 
@@ -24,9 +24,9 @@ def features_column(x):
 df['features'] = df.apply(features_column, axis=1)
 
 # Content-based filtering using advanced features
-count = CountVectorizer(stop_words='english')
-count_X = count.fit_transform(df['features'])
-cosine_similarity2 = cosine_similarity(count_X, count_X)
+vect2 = TfidfVectorizer(stop_words='english')
+vect_X = vect2.fit_transform(df['features'])
+cosine_similarity2 = cosine_similarity(vect_X, vect_X)
 
 food_items = pd.Series(df.index, index=df['Name']).drop_duplicates()
 

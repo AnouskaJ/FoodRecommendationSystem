@@ -78,7 +78,7 @@ print(food_recommendations('tricolour salad'))
 Based on Category, Vegetarian/ Non-Vegetarian, Description
 """
 
-food_features = ['C_Type','Veg_Non', 'Describe']
+food_features = ['C_Type', 'Veg_Non', 'Describe']
 
 def features_column(x):
     return x['C_Type'] + " " + x['Veg_Non'] + " " + x['Describe']
@@ -88,10 +88,13 @@ df['features'] = df.apply(features_column, axis=1)
 
 df.head()
 
-count = CountVectorizer(stop_words='english')
-count_X = count.fit_transform(df['features'])
+vect2 = TfidfVectorizer(stop_words='english')
+vect_X = vect2.fit_transform(df['features'])
+print(type(vect_X))
 
-cosine_similarity2 = cosine_similarity(count_X, count_X)
+# Veg_Non = pd.get_dummies(df['Veg_Non'])
+# X2 = vect_X.join(Veg_Non)
+cosine_similarity2 = linear_kernel(vect_X, vect_X)
 
 df = df.reset_index()
 food_items = pd.Series(df.index, index=df['Name'])
